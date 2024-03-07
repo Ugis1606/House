@@ -1,10 +1,14 @@
 package main;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Group;
 import javafx.scene.SubScene;
 import javafx.scene.transform.Rotate;
+import javafx.util.Duration;
 
 public class Controls {
 
@@ -36,6 +40,21 @@ public class Controls {
             angleX.set(anchorAngleX - (anchorY - event.getSceneY()));
             angleY.set(anchorAngleY - (anchorX - event.getSceneX()));
         });
+    }
+
+    public void cameraRotate(Rotate yRotate){
+        Timeline timeline = new Timeline(
+                new KeyFrame(
+                        Duration.seconds(0),
+                        new KeyValue(yRotate.angleProperty(), 0)
+                ),
+                new KeyFrame(
+                        Duration.seconds(10),
+                        new KeyValue(yRotate.angleProperty(), -360)
+                )
+        );
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
     }
 
 

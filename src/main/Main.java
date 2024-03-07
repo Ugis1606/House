@@ -20,6 +20,7 @@ import javafx.util.Duration;
 public class Main extends Application{
 
     private Group createContent() {
+        Controls controls = new Controls();
         Sphere moon = new Sphere(1);
         moon.setMaterial(new PhongMaterial(Color.YELLOW));
         moon.getTransforms().add(new Translate(0, -6, 40));
@@ -33,12 +34,8 @@ public class Main extends Application{
         Cylinder tree1 = new Cylinder(1, 4);
         Cylinder tree2 = new Cylinder(1.2, 6);
 
-        tree1.setTranslateX(7);
-        tree1.setTranslateZ(6);
-        tree1.setTranslateY(-0.3);
-        tree2.setTranslateX(-7);
-        tree2.setTranslateZ(2);
-        tree2.setTranslateY(-0.3);
+        tree1.getTransforms().add(new Translate(7, (house.getHeight() - tree1.getHeight())/2 - 0.4, 6));
+        tree2.getTransforms().add(new Translate(-7, (house.getHeight() - tree2.getHeight())/2 - 0.4, 2));
 
         house.setMaterial(new PhongMaterial(Color.FIREBRICK));
         tree1.setMaterial(new PhongMaterial(Color.FORESTGREEN));
@@ -59,20 +56,6 @@ public class Main extends Application{
                 new Translate(0, 0, -50)
         );
 
-        // animate the camera position.
-        Timeline timeline = new Timeline(
-                new KeyFrame(
-                        Duration.seconds(0),
-                        new KeyValue(yRotate.angleProperty(), 0)
-                ),
-                new KeyFrame(
-                        Duration.seconds(10),
-                        new KeyValue(yRotate.angleProperty(), -360)
-                )
-        );
-        timeline.setCycleCount(Timeline.INDEFINITE);
-      //  timeline.play();
-
         // Build the Scene Graph
         Group root = new Group();
         root.getChildren().addAll(house, ground, tree1,tree2, moon);
@@ -90,7 +73,7 @@ public class Main extends Application{
         Group group = new Group();
         group.getChildren().add(subScene);
 
-        Controls controls = new Controls();
+  //      controls.cameraRotate(yRotate);
         controls.initMouseControl(root, subScene);
 
         return group;
