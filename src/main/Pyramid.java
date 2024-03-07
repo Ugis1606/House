@@ -6,9 +6,9 @@ import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 
-public class Roof {
+public class Pyramid {
 
-    public MeshView createRoof(){
+    public MeshView createPyramid(){
         TriangleMesh mesh = new TriangleMesh();
         float h = 5;    // Height (Y)
         float w = 6;    // Width (X)
@@ -38,12 +38,12 @@ public class Roof {
         );
 
         mesh.getFaces().addAll(
-                0, 0, 3, 5, 2, 6, // Front face
-                    0, 0, 2, 2, 1, 3, // Right face
-                    0, 0, 1, 1, 4, 2, // Back face
-                    0, 0, 4, 4, 3, 5, // Left right face
-                    2, 9, 3, 8, 4, 7, // Bottom face
-                    2, 9, 4, 7, 1, 10 // Bottom face
+                  0, 0, 3, 5, 2, 6, // Front face
+                        0, 0, 2, 2, 1, 3, // Right face
+                        0, 0, 1, 1, 4, 2, // Back face
+                        0, 0, 4, 4, 3, 5, // Left right face
+                        2, 9, 3, 8, 4, 7, // Bottom face
+                        2, 9, 4, 7, 1, 10 // Bottom face
         );
 
         PhongMaterial material = new PhongMaterial();
@@ -55,6 +55,9 @@ public class Roof {
 
         return pyramid;
     }
+
+
+
 
 
 }

@@ -1,8 +1,5 @@
 package main;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.*;
 import javafx.scene.paint.Color;
@@ -14,13 +11,12 @@ import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 
 public class Main extends Application{
 
     private Group createContent() {
-        Roof roof = new Roof();
+        Pyramid pyramid = new Pyramid();
         Controls controls = new Controls();
         Sphere moon = new Sphere(1);
         moon.setMaterial(new PhongMaterial(Color.YELLOW));
@@ -61,7 +57,7 @@ public class Main extends Application{
         Group root = new Group();
     //    root.getChildren().addAll(house, ground, tree1,tree2, moon, roof.createRoof());
     //    root.getChildren().add(ground);
-        root.getChildren().add(roof.createRoof());
+        root.getChildren().add(pyramid.createPyramid());
 
         // Use a SubScene
         SubScene subScene = new SubScene(
