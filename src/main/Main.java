@@ -20,6 +20,7 @@ import javafx.util.Duration;
 public class Main extends Application{
 
     private Group createContent() {
+        Roof roof = new Roof();
         Controls controls = new Controls();
         Sphere moon = new Sphere(1);
         moon.setMaterial(new PhongMaterial(Color.YELLOW));
@@ -58,7 +59,9 @@ public class Main extends Application{
 
         // Build the Scene Graph
         Group root = new Group();
-        root.getChildren().addAll(house, ground, tree1,tree2, moon);
+    //    root.getChildren().addAll(house, ground, tree1,tree2, moon, roof.createRoof());
+    //    root.getChildren().add(ground);
+        root.getChildren().add(roof.createRoof());
 
         // Use a SubScene
         SubScene subScene = new SubScene(
