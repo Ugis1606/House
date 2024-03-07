@@ -19,7 +19,7 @@ import javafx.util.Duration;
 
 public class Main extends Application{
 
-    private Parent createContent() {
+    private Group createContent() {
         Sphere moon = new Sphere(1);
         moon.setMaterial(new PhongMaterial(Color.YELLOW));
         moon.getTransforms().add(new Translate(0, -6, 40));
@@ -71,11 +71,11 @@ public class Main extends Application{
                 )
         );
         timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
+      //  timeline.play();
 
         // Build the Scene Graph
         Group root = new Group();
-        root.getChildren().addAll(camera, house, ground, tree1,tree2, moon);
+        root.getChildren().addAll(house, ground, tree1,tree2, moon);
 
         // Use a SubScene
         SubScene subScene = new SubScene(
@@ -86,8 +86,12 @@ public class Main extends Application{
         );
         subScene.setFill(Color.ALICEBLUE);
         subScene.setCamera(camera);
+
         Group group = new Group();
         group.getChildren().add(subScene);
+
+        Controls controls = new Controls();
+        controls.initMouseControl(root, subScene);
 
         return group;
     }
