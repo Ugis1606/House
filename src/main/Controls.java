@@ -11,7 +11,6 @@ import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
 public class Controls {
-
     private double anchorX, anchorY;
     private double anchorAngleX = 0;
     private double anchorAngleY = 0;
@@ -41,6 +40,8 @@ public class Controls {
             angleY.set(anchorAngleY - (anchorX - event.getSceneX()));
         });
     }
+
+
 
     public void cameraRotate(Rotate yRotate){
         Timeline timeline = new Timeline(

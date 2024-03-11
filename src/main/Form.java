@@ -1,6 +1,5 @@
 package main;
 
-import javafx.collections.ObservableFloatArray;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.DrawMode;
@@ -9,24 +8,24 @@ import javafx.scene.shape.TriangleMesh;
 
 import java.io.FileNotFoundException;
 
-public class Other {
+public class Form {
 
-    public MeshView createOther() throws FileNotFoundException {
+    public MeshView createForm() throws FileNotFoundException {
         OBJloader loader = new OBJloader();
         TriangleMesh mesh = new TriangleMesh();
-        float h = 5;    // Height (Y)
-        float w = 10;    // Width (X)
-        float d = 5;    // Depth (Z)
+        float h = 5;
+        float w = 10;
+        float d = 5;
 
         loader.listVertex.forEach(el -> mesh.getPoints().addAll(el));
         loader.listTexCord.forEach(el -> mesh.getTexCoords().addAll(el));
         loader.listFaces.forEach(el -> mesh.getFaces().addAll(el));
 
-        MeshView other = new MeshView(mesh);
-        other.setDrawMode(DrawMode.FILL);
-        other.setMaterial(new PhongMaterial(Color.BROWN));
+        MeshView form = new MeshView(mesh);
+        form.setDrawMode(DrawMode.FILL);
+        form.setMaterial(new PhongMaterial(Color.BROWN));
 
-        return other;
+        return form;
     }
 
 
