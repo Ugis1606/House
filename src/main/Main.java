@@ -12,11 +12,16 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 
 public class Main extends Application{
 
-    private Group createContent() {
+    private Group createContent() throws FileNotFoundException {
         Pyramid pyramid = new Pyramid();
+        Roof roof = new Roof();
+        Other other = new Other();
         Controls controls = new Controls();
         Sphere moon = new Sphere(1);
         moon.setMaterial(new PhongMaterial(Color.YELLOW));
@@ -57,7 +62,9 @@ public class Main extends Application{
         Group root = new Group();
     //    root.getChildren().addAll(house, ground, tree1,tree2, moon, roof.createRoof());
     //    root.getChildren().add(ground);
-        root.getChildren().add(pyramid.createPyramid());
+    //    root.getChildren().add(pyramid.createPyramid());
+    //    root.getChildren().add(roof.createRoof());
+        root.getChildren().add(other.createOther());
 
         // Use a SubScene
         SubScene subScene = new SubScene(
@@ -79,7 +86,7 @@ public class Main extends Application{
     }
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws IOException {
         stage.setTitle("House");
         stage.setResizable(false);
         Scene scene = new Scene(createContent());
