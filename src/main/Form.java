@@ -10,8 +10,8 @@ import java.io.FileNotFoundException;
 
 public class Form {
 
-    public MeshView createForm() throws FileNotFoundException {
-        OBJloader loader = new OBJloader();
+    public MeshView createForm(String path) throws FileNotFoundException {
+        OBJloader loader = new OBJloader(path);
         TriangleMesh mesh = new TriangleMesh();
         float h = 5;
         float w = 10;
@@ -23,7 +23,7 @@ public class Form {
 
         MeshView form = new MeshView(mesh);
         form.setDrawMode(DrawMode.FILL);
-        form.setMaterial(new PhongMaterial(Color.BROWN));
+        form.setMaterial(new PhongMaterial(Color.AQUAMARINE));
 
         return form;
     }

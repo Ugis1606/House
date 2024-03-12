@@ -15,8 +15,8 @@ public class OBJloader {
     List<Float> listTexCord;
     List<Integer> listFaces;
 
-    public OBJloader() throws FileNotFoundException {
-        myObj = new File("C:\\Users\\Pluto\\IdeaProjects\\House\\src\\resources\\unti9.obj");
+    public OBJloader(String path) throws FileNotFoundException {
+        myObj = new File(path);
         myReader = new Scanner(myObj);
         listTexCord = new ArrayList<>();
         listVertex = new ArrayList<>();

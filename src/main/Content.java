@@ -8,17 +8,13 @@ import javafx.scene.transform.Translate;
 import java.io.FileNotFoundException;
 
 public class Content {
+    Group root;
 
     public Group createContent() throws FileNotFoundException {
-        Controls controls = new Controls();
-        Form form = new Form();
+        Controls controls = new Controls(this);
         Camera camera = setUpCamera();
+        root = new Group();
 
-        // Build the Scene Graph
-        Group root = new Group();
-        root.getChildren().addAll(form.createForm());
-
-        // Use a SubScene
         SubScene subScene = new SubScene(
                 root,
                 800,600,
@@ -30,9 +26,7 @@ public class Content {
 
         Group content = new Group();
         content.getChildren().add(subScene);
-
         controls.initMouseControl(root, camera, subScene);
-
         return content;
     }
 
@@ -49,6 +43,11 @@ public class Content {
         );
 
         return camera;
+    }
+
+    public void addForm(String path) throws FileNotFoundException {
+        Form form = new Form();
+        root.getChildren().add(form.createForm(path));
     }
 
 }

@@ -18,6 +18,7 @@ import java.io.IOException;
 
 public class Main extends Application{
     Content content = new Content();
+    Controls controls = new Controls(content);
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -26,6 +27,8 @@ public class Main extends Application{
         Scene scene = new Scene(content.createContent());
         stage.setScene(scene);
         stage.show();
+
+        controls.initDragAndDrop(scene);
     }
 
     public static void main(String[] args) {

@@ -7,12 +7,26 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Camera;
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.SubScene;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.util.Duration;
 
+import javax.swing.filechooser.FileSystemView;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class Controls {
+    Content content;
+    public Controls(Content content) {
+        this.content = content;
+    }
+
     private double anchorX, anchorY;
     private double anchorAngleX = 0;
     private double anchorAngleY = 0;
@@ -51,6 +65,25 @@ public class Controls {
         );
         zTranslate.zProperty().bind(zoom);
         scene.setOnScroll(event -> zoom.set(zoom.get() + event.getDeltaY() / 20));
+    }
+
+    public void initDragAndDrop(Scene scene){
+        scene.setOnDragOver(event -> {
+            if (event.getDragboard().hasFiles()) event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+            event.consume();
+        });
+        scene.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+
+            try {
+                content.addForm(db.getUrl().replace("file:/",""));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            event.setDropCompleted(db.hasFiles());
+            event.consume();
+        });
     }
 
 
