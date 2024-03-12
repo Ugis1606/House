@@ -13,9 +13,6 @@ public class Form {
     public MeshView createForm(String path) throws FileNotFoundException {
         OBJloader loader = new OBJloader(path);
         TriangleMesh mesh = new TriangleMesh();
-        float h = 5;
-        float w = 10;
-        float d = 5;
 
         loader.listVertex.forEach(el -> mesh.getPoints().addAll(el));
         loader.listTexCord.forEach(el -> mesh.getTexCoords().addAll(el));

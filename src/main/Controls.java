@@ -10,16 +10,12 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.input.Dragboard;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.util.Duration;
 
-import javax.swing.filechooser.FileSystemView;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class Controls {
     Content content;

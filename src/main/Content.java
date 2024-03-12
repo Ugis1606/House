@@ -10,14 +10,14 @@ import java.io.FileNotFoundException;
 public class Content {
     Group root;
 
-    public Group createContent() throws FileNotFoundException {
+    public Group createContent() {
         Controls controls = new Controls(this);
         Camera camera = setUpCamera();
         root = new Group();
 
         SubScene subScene = new SubScene(
                 root,
-                800,600,
+                1200,800,
                 true,
                 SceneAntialiasing.BALANCED
         );
