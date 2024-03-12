@@ -31,7 +31,7 @@ public class Content {
         Group content = new Group();
         content.getChildren().add(subScene);
 
-        controls.initMouseControl(root, subScene);
+        controls.initMouseControl(root, camera, subScene);
 
         return content;
     }

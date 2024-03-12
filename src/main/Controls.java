@@ -5,9 +5,11 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.SubScene;
 import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Translate;
 import javafx.util.Duration;
 
 public class Controls {
@@ -16,8 +18,9 @@ public class Controls {
     private double anchorAngleY = 0;
     private final DoubleProperty angleX = new SimpleDoubleProperty(0);
     private final DoubleProperty angleY = new SimpleDoubleProperty(0);
+    private final DoubleProperty zoom = new SimpleDoubleProperty(0);
 
-    public void initMouseControl(Group group, SubScene scene){
+    public void initMouseControl(Group group, Camera camera, SubScene scene){
         Rotate xRotate;
         Rotate yRotate;
 
@@ -25,6 +28,7 @@ public class Controls {
                 xRotate = new Rotate(0, Rotate.X_AXIS),
                 yRotate = new Rotate(0, Rotate.Y_AXIS)
         );
+
         xRotate.angleProperty().bind(angleX);
         yRotate.angleProperty().bind(angleY);
 
@@ -39,8 +43,15 @@ public class Controls {
             angleX.set(anchorAngleX - (anchorY - event.getSceneY()));
             angleY.set(anchorAngleY - (anchorX - event.getSceneX()));
         });
-    }
 
+        //---------  camera ---------------
+        Translate zTranslate;
+        camera.getTransforms().addAll(
+                zTranslate = new Translate(0, 0, 0)
+        );
+        zTranslate.zProperty().bind(zoom);
+        scene.setOnScroll(event -> zoom.set(zoom.get() + event.getDeltaY() / 20));
+    }
 
 
     public void cameraRotate(Rotate yRotate){
