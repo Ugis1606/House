@@ -72,7 +72,9 @@ public class Controls {
             Dragboard db = event.getDragboard();
 
             try {
-                content.addForm(db.getUrl().replace("file:/",""));
+                String path = db.getUrl().replace("file:/","");
+                content.addForm(path);
+                content.label.setText(path);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

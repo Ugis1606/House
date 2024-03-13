@@ -1,5 +1,6 @@
 package main;
 
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.DrawMode;
@@ -20,6 +21,7 @@ public class Form {
 
         MeshView form = new MeshView(mesh);
         form.setDrawMode(DrawMode.FILL);
+
         form.setMaterial(new PhongMaterial(Color.AQUAMARINE));
 
         return form;
