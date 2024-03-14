@@ -47,7 +47,7 @@ public class Pyramid {
         );
 
         PhongMaterial material = new PhongMaterial();
-        material.setDiffuseMap(new Image("/resources/buildings1.png"));
+        material.setDiffuseMap(new Image("/resources/build.png"));
 
         MeshView pyramid = new MeshView(mesh);
         pyramid.setDrawMode(DrawMode.FILL);

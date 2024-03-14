@@ -1,26 +1,25 @@
 package main;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.event.EventType;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
 import java.io.FileNotFoundException;
-import java.util.Objects;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 
 public class Content {
     Group root;
     Label label;
-    Label colorlabel = new Label();
-    public ObjectProperty<Paint> colorValue;
+    String colourValue;
 
     public Group createContent() {
         Controls controls = new Controls(this);
@@ -48,8 +47,11 @@ public class Content {
     private HBox createLabelandColorPicker() {
         ColorPicker colorPicker = new ColorPicker();
         colorPicker.setStyle("-fx-color-label-visible: false ;");
-        colorValue = colorlabel.textFillProperty();
-        colorValue.bind(colorPicker.valueProperty());
+        EventHandler<ActionEvent> event = e -> {
+            label.setText("");
+            colourValue = colorPicker.getValue().toString();
+        };
+        colorPicker.setOnAction(event);
 
         HBox box = new HBox();
         label.setFont(Font.font("Courier", 14));
@@ -75,9 +77,9 @@ public class Content {
         return camera;
     }
 
-    public void addForm(String path) throws FileNotFoundException {
+    public void addForm(String path) throws FileNotFoundException, MalformedURLException, URISyntaxException {
         Form form = new Form();
-        root.getChildren().add(form.createForm(path, colorValue));
+        root.getChildren().add(form.createForm(path, colourValue, label.getText()));
     }
 
 }

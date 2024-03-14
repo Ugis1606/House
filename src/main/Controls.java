@@ -16,6 +16,8 @@ import javafx.scene.transform.Translate;
 import javafx.util.Duration;
 
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 
 public class Controls {
     Content content;
@@ -68,14 +70,15 @@ public class Controls {
             if (event.getDragboard().hasFiles()) event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
             event.consume();
         });
+
         scene.setOnDragDropped(event -> {
             Dragboard db = event.getDragboard();
 
             try {
                 String path = db.getUrl().replace("file:/","");
-                content.addForm(path);
-                content.label.setText(path);
-            } catch (FileNotFoundException e) {
+                if (path.endsWith("obj")) content.addForm(path);
+                else content.label.setText(path);
+            } catch (FileNotFoundException | MalformedURLException | URISyntaxException e) {
                 e.printStackTrace();
             }
 
