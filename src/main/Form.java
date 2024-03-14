@@ -1,7 +1,8 @@
 package main;
 
-import javafx.scene.image.Image;
+import javafx.beans.property.ObjectProperty;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.MeshView;
@@ -11,7 +12,7 @@ import java.io.FileNotFoundException;
 
 public class Form {
 
-    public MeshView createForm(String path) throws FileNotFoundException {
+    public MeshView createForm(String path, ObjectProperty<Paint> colorValue) throws FileNotFoundException {
         OBJloader loader = new OBJloader(path);
         TriangleMesh mesh = new TriangleMesh();
 
@@ -21,8 +22,7 @@ public class Form {
 
         MeshView form = new MeshView(mesh);
         form.setDrawMode(DrawMode.FILL);
-
-        form.setMaterial(new PhongMaterial(Color.AQUAMARINE));
+        form.setMaterial(new PhongMaterial(Color.valueOf(colorValue.getValue().toString())));
 
         return form;
     }

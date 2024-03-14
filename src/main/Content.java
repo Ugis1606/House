@@ -1,20 +1,26 @@
 package main;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.event.EventType;
 import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
 import java.io.FileNotFoundException;
+import java.util.Objects;
 
 public class Content {
     Group root;
     Label label;
+    Label colorlabel = new Label();
+    public ObjectProperty<Paint> colorValue;
 
     public Group createContent() {
         Controls controls = new Controls(this);
@@ -40,9 +46,12 @@ public class Content {
     }
 
     private HBox createLabelandColorPicker() {
-        HBox box = new HBox();
         ColorPicker colorPicker = new ColorPicker();
         colorPicker.setStyle("-fx-color-label-visible: false ;");
+        colorValue = colorlabel.textFillProperty();
+        colorValue.bind(colorPicker.valueProperty());
+
+        HBox box = new HBox();
         label.setFont(Font.font("Courier", 14));
         label.setAlignment(Pos.CENTER_LEFT);
         box.getTransforms().add(new Translate(20, 10, 0));
@@ -68,7 +77,7 @@ public class Content {
 
     public void addForm(String path) throws FileNotFoundException {
         Form form = new Form();
-        root.getChildren().add(form.createForm(path));
+        root.getChildren().add(form.createForm(path, colorValue));
     }
 
 }
