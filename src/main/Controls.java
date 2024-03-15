@@ -21,6 +21,7 @@ import java.net.URISyntaxException;
 
 public class Controls {
     Content content;
+    Timeline timeline;
     public Controls(Content content) {
         this.content = content;
     }
@@ -87,9 +88,8 @@ public class Controls {
         });
     }
 
-
     public void cameraRotate(Rotate yRotate){
-        Timeline timeline = new Timeline(
+        timeline = new Timeline(
                 new KeyFrame(
                         Duration.seconds(0),
                         new KeyValue(yRotate.angleProperty(), 0)
@@ -100,7 +100,6 @@ public class Controls {
                 )
         );
         timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
     }
 
 

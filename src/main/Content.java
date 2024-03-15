@@ -1,9 +1,9 @@
 package main;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.animation.Animation;
 import javafx.geometry.Pos;
 import javafx.scene.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -18,6 +18,8 @@ import java.net.URISyntaxException;
 
 public class Content {
     Group root;
+    Controls controls = new Controls(this);
+    Rotate yRotate;
     Label label;
     String colourValue;
 
@@ -45,27 +47,39 @@ public class Content {
     }
 
     private HBox createLabelandColorPicker() {
+        Button rotateBtn = new Button("Rotate");
+        rotateBtn.setOnAction(e -> {
+            if (controls.timeline == null) controls.cameraRotate(yRotate);
+            if (!controls.timeline.statusProperty().getValue().equals(Animation.Status.RUNNING)) controls.timeline.play();
+            else controls.timeline.pause();
+        });
+
+        Button undoBtn = new Button("Undo");
+        undoBtn.setOnAction(e -> {
+            int index = root.getChildren().size()-1;
+            if (index > -1) root.getChildren().remove(root.getChildren().size()-1);
+        });
+
         ColorPicker colorPicker = new ColorPicker();
         colorPicker.setStyle("-fx-color-label-visible: false ;");
-        EventHandler<ActionEvent> event = e -> {
+        colorPicker.setOnAction(e -> {
             label.setText("");
             colourValue = colorPicker.getValue().toString();
-        };
-        colorPicker.setOnAction(event);
+        });
 
         HBox box = new HBox();
         label.setFont(Font.font("Courier", 14));
         label.setAlignment(Pos.CENTER_LEFT);
         box.getTransforms().add(new Translate(20, 10, 0));
         box.setSpacing(5);
-        box.getChildren().addAll(colorPicker, label);
+        box.getChildren().addAll(rotateBtn, undoBtn, colorPicker, label);
         return box;
     }
 
 
     private Camera setUpCamera(){
         Translate pivot = new Translate();
-        Rotate yRotate = new Rotate(0, Rotate.Y_AXIS);
+        yRotate = new Rotate(0, Rotate.Y_AXIS);
         Camera camera = new PerspectiveCamera(true);
         camera.getTransforms().addAll (
                 pivot,
