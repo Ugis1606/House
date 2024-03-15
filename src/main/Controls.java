@@ -5,12 +5,10 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.scene.Camera;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.SubScene;
+import javafx.scene.*;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.scene.shape.MeshView;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.FileChooser;
@@ -19,6 +17,7 @@ import javafx.util.Duration;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.util.List;
 
 public class Controls {
     Content content;
@@ -103,9 +102,8 @@ public class Controls {
         timeline.setCycleCount(Timeline.INDEFINITE);
     }
 
-    public void save(SavedObject savedObject) throws IOException {
+    public void save(List<SavedObject> savedObjectList) throws IOException {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("House");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + File.separatorChar + "Desktop"));
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("SER", ".ser");
         fileChooser.getExtensionFilters().add(extFilter);
@@ -114,7 +112,8 @@ public class Controls {
 
         FileOutputStream fileOut = new FileOutputStream(file.getAbsolutePath());
         ObjectOutputStream out = new ObjectOutputStream(fileOut);
-        out.writeObject(savedObject);
+    //    out.writeObject(savedObject);
+        out.writeObject(savedObjectList.get(0));
         out.close();
         fileOut.close();
     }

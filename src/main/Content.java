@@ -8,6 +8,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.MeshView;
 import javafx.scene.text.Font;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
@@ -18,6 +19,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.util.List;
 
 public class Content {
     Group root;
@@ -25,6 +27,7 @@ public class Content {
     Rotate yRotate;
     Label label;
     String colourValue;
+    List<SavedObject> savedObjectList;
 
     public Group createContent() {
         Controls controls = new Controls(this);
@@ -53,7 +56,7 @@ public class Content {
         Button saveBtn = new Button("Save");
         saveBtn.setOnAction(e -> {
             try {
-                controls.save(new SavedObject());
+                controls.save(savedObjectList);
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
@@ -105,7 +108,13 @@ public class Content {
 
     public void addForm(String path) throws FileNotFoundException, MalformedURLException, URISyntaxException {
         Form form = new Form();
-        root.getChildren().add(form.createForm(path, colourValue, label.getText()));
+        SavedObject savedObject = new SavedObject();
+        root.getChildren().add(form.createForm(path, colourValue, label.getText(), savedObject));
+
+
+        savedObjectList.add(savedObject);
+
+
     }
 
 }
