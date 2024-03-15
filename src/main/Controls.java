@@ -13,9 +13,10 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
+import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 
@@ -102,6 +103,20 @@ public class Controls {
         timeline.setCycleCount(Timeline.INDEFINITE);
     }
 
+    public void save(SavedObject savedObject) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("House");
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + File.separatorChar + "Desktop"));
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("SER", ".ser");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = fileChooser.showSaveDialog(Main.scene.getWindow());
+        if(file == null) return;
 
+        FileOutputStream fileOut = new FileOutputStream(file.getAbsolutePath());
+        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+        out.writeObject(savedObject);
+        out.close();
+        fileOut.close();
+    }
 
 }

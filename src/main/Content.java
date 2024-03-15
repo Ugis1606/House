@@ -11,8 +11,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 
@@ -47,6 +50,15 @@ public class Content {
     }
 
     private HBox createLabelandColorPicker() {
+        Button saveBtn = new Button("Save");
+        saveBtn.setOnAction(e -> {
+            try {
+                controls.save(new SavedObject());
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+        });
+
         Button rotateBtn = new Button("Rotate");
         rotateBtn.setOnAction(e -> {
             if (controls.timeline == null) controls.cameraRotate(yRotate);
@@ -72,7 +84,7 @@ public class Content {
         label.setAlignment(Pos.CENTER_LEFT);
         box.getTransforms().add(new Translate(20, 10, 0));
         box.setSpacing(5);
-        box.getChildren().addAll(rotateBtn, undoBtn, colorPicker, label);
+        box.getChildren().addAll(saveBtn, rotateBtn, undoBtn, colorPicker, label);
         return box;
     }
 

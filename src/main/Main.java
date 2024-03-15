@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application{
+    static Scene scene;
     Content content = new Content();
     Controls controls = new Controls(content);
 
@@ -13,7 +14,7 @@ public class Main extends Application{
     public void start(Stage stage) {
         stage.setTitle("House");
         stage.setResizable(false);
-        Scene scene = new Scene(content.createContent());
+        scene = new Scene(content.createContent());
         stage.setScene(scene);
         stage.show();
 
