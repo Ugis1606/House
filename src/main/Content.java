@@ -19,6 +19,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Content {
@@ -27,7 +28,7 @@ public class Content {
     Rotate yRotate;
     Label label;
     String colourValue;
-    List<SavedObject> savedObjectList;
+    SavedObjectList savedObjectList = new SavedObjectList();;
 
     public Group createContent() {
         Controls controls = new Controls(this);
@@ -106,15 +107,18 @@ public class Content {
         return camera;
     }
 
-    public void addForm(String path) throws FileNotFoundException, MalformedURLException, URISyntaxException {
+    public void addForm(String path, SavedObject savedObject) throws FileNotFoundException, MalformedURLException, URISyntaxException {
         Form form = new Form();
-        SavedObject savedObject = new SavedObject();
-        root.getChildren().add(form.createForm(path, colourValue, label.getText(), savedObject));
+        OBJloader loader = new OBJloader(path);
+        loader.readFile(savedObject);
+        root.getChildren().add(form.createForm(colourValue, label.getText(), savedObject));
+        savedObjectList.savedObjectList.add(savedObject);
+    }
 
-
-        savedObjectList.add(savedObject);
-
-
+    public void loadForm(SavedObjectList savedObjectList) throws MalformedURLException {
+        Form form = new Form();
+        root.getChildren().add(form.createForm(colourValue, label.getText(), savedObjectList.savedObjectList.get(0)));
+        savedObjectList.savedObjectList.add(savedObjectList.savedObjectList.get(0));
     }
 
 }

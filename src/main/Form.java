@@ -14,10 +14,8 @@ import java.util.List;
 
 public class Form {
 
-    public MeshView createForm(String path, String colorValue, String labelText, SavedObject savedObject) throws FileNotFoundException, MalformedURLException {
-        OBJloader loader = new OBJloader(path, savedObject);
+    public MeshView createForm(String colorValue, String labelText, SavedObject savedObject) throws MalformedURLException {
         TriangleMesh mesh = new TriangleMesh();
-        loader.readFile();
 
         savedObject.vertex.forEach(el -> mesh.getPoints().addAll(el));
         savedObject.texCord.forEach(el -> mesh.getTexCoords().addAll(el));

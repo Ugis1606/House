@@ -77,9 +77,12 @@ public class Controls {
 
             try {
                 String path = db.getUrl().replace("file:/","");
-                if (path.endsWith("obj")) content.addForm(path);
+                if (path.endsWith(".obj")) content.addForm(path, new SavedObject());
+
+                else if (path.endsWith(".ser")) content.loadForm(load(path));
+
                 else content.label.setText(path);
-            } catch (FileNotFoundException | MalformedURLException | URISyntaxException e) {
+            } catch (URISyntaxException | IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
 
@@ -102,7 +105,7 @@ public class Controls {
         timeline.setCycleCount(Timeline.INDEFINITE);
     }
 
-    public void save(List<SavedObject> savedObjectList) throws IOException {
+    public void save(SavedObjectList savedObjectList) throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + File.separatorChar + "Desktop"));
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("SER", ".ser");
@@ -112,10 +115,18 @@ public class Controls {
 
         FileOutputStream fileOut = new FileOutputStream(file.getAbsolutePath());
         ObjectOutputStream out = new ObjectOutputStream(fileOut);
-    //    out.writeObject(savedObject);
-        out.writeObject(savedObjectList.get(0));
+        out.writeObject(savedObjectList);
         out.close();
         fileOut.close();
+    }
+
+    public static SavedObjectList load(String path) throws IOException, ClassNotFoundException {
+        FileInputStream fileIn = new FileInputStream(path);
+        ObjectInputStream in = new ObjectInputStream(fileIn);
+        SavedObjectList savedObjectList = (SavedObjectList) in.readObject();
+        in.close();
+        fileIn.close();
+        return savedObjectList;
     }
 
 }
