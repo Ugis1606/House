@@ -28,7 +28,8 @@ public class Content {
     Rotate yRotate;
     Label label;
     String colourValue = "0x669999ff";
-    SavedObject savedObject = new SavedObject();;
+    SavedObject savedObject = new SavedObject();
+    ColorPicker colorPicker = new ColorPicker();
 
     public Group createContent() {
         Controls controls = new Controls(this);
@@ -54,6 +55,14 @@ public class Content {
     }
 
     private HBox createLabelandColorPicker() {
+        Button resetBtn = new Button("RESET");
+        resetBtn.setOnAction(e -> {
+            root.getChildren().clear();
+            if (controls.timeline != null) controls.timeline.stop();
+            colorPicker.setValue(Color.valueOf("0x669999ff"));
+            colourValue = "0x669999ff";
+        });
+
         Button saveBtn = new Button("Save");
         saveBtn.setOnAction(e -> {
             try {
@@ -76,7 +85,6 @@ public class Content {
             if (index > -1) root.getChildren().remove(root.getChildren().size()-1);
         });
 
-        ColorPicker colorPicker = new ColorPicker();
         colorPicker.setValue(Color.valueOf("0x669999ff"));
         colorPicker.setStyle("-fx-color-label-visible: false ;");
         colorPicker.setOnAction(e -> {
@@ -89,7 +97,7 @@ public class Content {
         label.setAlignment(Pos.CENTER_LEFT);
         box.getTransforms().add(new Translate(20, 10, 0));
         box.setSpacing(5);
-        box.getChildren().addAll(saveBtn, rotateBtn, undoBtn, colorPicker, label);
+        box.getChildren().addAll(resetBtn, saveBtn, rotateBtn, undoBtn, colorPicker, label);
         return box;
     }
 
