@@ -28,7 +28,7 @@ public class Content {
     Rotate yRotate;
     Label label;
     String colourValue;
-    SavedObjectList savedObjectList = new SavedObjectList();;
+    SavedObject savedObject = new SavedObject();;
 
     public Group createContent() {
         Controls controls = new Controls(this);
@@ -57,7 +57,7 @@ public class Content {
         Button saveBtn = new Button("Save");
         saveBtn.setOnAction(e -> {
             try {
-                controls.save(savedObjectList);
+                controls.save(savedObject);
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
@@ -107,18 +107,17 @@ public class Content {
         return camera;
     }
 
-    public void addForm(String path, SavedObject savedObject) throws FileNotFoundException, MalformedURLException, URISyntaxException {
+    public void addForm(String path) throws FileNotFoundException, MalformedURLException, URISyntaxException {
         Form form = new Form();
         OBJloader loader = new OBJloader(path);
         loader.readFile(savedObject);
         root.getChildren().add(form.createForm(colourValue, label.getText(), savedObject));
-        savedObjectList.savedObjectList.add(savedObject);
     }
 
-    public void loadForm(SavedObjectList savedObjectList) throws MalformedURLException {
+    public void loadForm(SavedObject savedObject) throws MalformedURLException {
         Form form = new Form();
-        root.getChildren().add(form.createForm(colourValue, label.getText(), savedObjectList.savedObjectList.get(0)));
-        savedObjectList.savedObjectList.add(savedObjectList.savedObjectList.get(0));
+        root.getChildren().add(form.createForm(colourValue, label.getText(), savedObject));
+ //       savedObjectList.savedObjectList.add(savedObjectList.savedObjectList.get(0));
     }
 
 }
