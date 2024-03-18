@@ -14,12 +14,12 @@ import java.util.List;
 
 public class Form {
 
-    public MeshView createForm(String colorValue, String labelText, SavedObject savedObject) throws MalformedURLException {
+    public MeshView createForm(int index, String colorValue, String labelText, SavedObject savedObject) throws MalformedURLException {
         TriangleMesh mesh = new TriangleMesh();
 
-        savedObject.vertex.get(savedObject.vertex.size()-1).forEach(el -> mesh.getPoints().addAll(el));
-        savedObject.texCord.get(savedObject.texCord.size()-1).forEach(el -> mesh.getTexCoords().addAll(el));
-        savedObject.faces.get(savedObject.faces.size()-1).forEach(el -> mesh.getFaces().addAll(el));
+        savedObject.vertex.get(index).forEach(el -> mesh.getPoints().addAll(el));
+        savedObject.texCord.get(index).forEach(el -> mesh.getTexCoords().addAll(el));
+        savedObject.faces.get(index).forEach(el -> mesh.getFaces().addAll(el));
 
         MeshView form = new MeshView(mesh);
         form.setDrawMode(DrawMode.FILL);

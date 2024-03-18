@@ -27,7 +27,7 @@ public class Content {
     Controls controls = new Controls(this);
     Rotate yRotate;
     Label label;
-    String colourValue;
+    String colourValue = "0x669999ff";
     SavedObject savedObject = new SavedObject();;
 
     public Group createContent() {
@@ -77,6 +77,7 @@ public class Content {
         });
 
         ColorPicker colorPicker = new ColorPicker();
+        colorPicker.setValue(Color.valueOf("0x669999ff"));
         colorPicker.setStyle("-fx-color-label-visible: false ;");
         colorPicker.setOnAction(e -> {
             label.setText("");
@@ -111,13 +112,14 @@ public class Content {
         Form form = new Form();
         OBJloader loader = new OBJloader(path);
         loader.readFile(savedObject);
-        root.getChildren().add(form.createForm(colourValue, label.getText(), savedObject));
+        root.getChildren().add(form.createForm(savedObject.vertex.size()-1, colourValue, label.getText(), savedObject));
     }
 
     public void loadForm(SavedObject savedObject) throws MalformedURLException {
         Form form = new Form();
-        root.getChildren().add(form.createForm(colourValue, label.getText(), savedObject));
- //       savedObjectList.savedObjectList.add(savedObjectList.savedObjectList.get(0));
+        for (int i = 0; i < savedObject.vertex.size(); i++) {
+            root.getChildren().add(form.createForm(i, colourValue, label.getText(), savedObject));
+        }
     }
 
 }
